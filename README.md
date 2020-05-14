@@ -19,15 +19,15 @@ Set of functions for calculating performance metrics.
 
 Functions included:
 >calc_AUCROC
-
+>
 >calc_MCC
-
+>
 >calc_median_error
-
+>
 >calc_MSE
-
+>
 >calc_RSS
-
+>
 >performance.regression
 
 #### ordered_dot_plot():
