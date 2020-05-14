@@ -1,10 +1,17 @@
-# R_functions
-
-## R_utils:
+### R_packages
+#### lloydUtils
 
 Set of custom R functions John often uses while coding in R.
 
-## ordered_dot_plot():
+Installation:
+```
+# Download and install Rtools: https://cran.r-project.org/bin/windows/Rtools/
+# (Rtools required to install packages from GitHub)
+install.packages("devtools")
+library(devtools)
+install_github("johnplloyd/R_packages/lloydUtils")
+```
+#### ordered_dot_plot():
 
 Vizualise a distribution of data with ordered dots. Function will take a data frame, matrix, or list of vectors as input. Median values are indicated by thick red lines, 1st and 3rd quartiles are indicated with dotted gray lines. Either line set can be turned off with median_line or iqr_line arguments. Spread indicates distance of dot distributions from one another. Smaller spread = closer together, spread > 0.5 will cause overlap of neighboring distributions. Outliers can be removed from vizualization through use of the oulier argument.
 
