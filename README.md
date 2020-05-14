@@ -2,9 +2,9 @@
 #### lloydUtils
 
 Set of custom R functions John often uses while coding in R.
-
-Installation:
 ```
+# Installation:
+# ---
 # Download and install Rtools: https://cran.r-project.org/bin/windows/Rtools/
 # (Rtools required to install packages from GitHub)
 install.packages("devtools")
