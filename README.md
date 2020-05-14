@@ -5,8 +5,12 @@ Download and install Rtools: https://cran.r-project.org/bin/windows/Rtools/ *(Rt
 ```
 # install.packages("devtools")
 library(devtools)
-install_github("johnplloyd/R_packages/PACKAGE_NAME")
-# PACKAGE_NAME: lloydUtils, lloydPerf
+
+install_github("johnplloyd/R_packages/lloydUtils")
+library(lloydUtils)
+
+install_github("johnplloyd/R_packages/lloydPerf")
+library(lloydPerf)
 ```
 
 ### lloydUtils
