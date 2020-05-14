@@ -15,7 +15,7 @@ library(lloydPerf)
 
 ### lloydUtils
 
-Set of basic, custom R functions John often uses while coding in R.
+Set of general, custom R functions John often uses while coding in R.
 
 Functions included:
 ```
@@ -30,11 +30,12 @@ write_df
 
 ### lloydPerf
 
-Set of functions for calculating performance metrics.
+Set of functions for calculating performance metrics in R.
 
 Functions included:
 ```
-calc_AUCROC
+calc_AUCROC (requires package: ROCR)
+calc_kappa
 calc_MCC
 calc_median_error
 calc_MSE
