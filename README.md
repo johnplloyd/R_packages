@@ -17,33 +17,27 @@ library(lloydPerf)
 
 Set of basic, custom R functions John often uses while coding in R.
 
->corner
->
->intersect.iterate
->
->ordered_dot_plot
->
->p_round.display
->
->remove_outliers
->
->transparent_color
->
->write_df
+Functions included:
+```
+corner
+intersect.iterate
+ordered_dot_plot
+p_round.display
+remove_outliers
+transparent_color
+write_df
+```
 
 ### lloydPerf
 
 Set of functions for calculating performance metrics.
 
 Functions included:
->calc_AUCROC
->
->calc_MCC
->
->calc_median_error
->
->calc_MSE
->
->calc_RSS
->
->performance.regression
+```
+calc_AUCROC
+calc_MCC
+calc_median_error
+calc_MSE
+calc_RSS
+performance.regression
+```
