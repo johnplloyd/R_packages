@@ -2,21 +2,34 @@
 % Please edit documentation in R/corner.R
 \name{corner}
 \alias{corner}
-\title{Prints the top left corner of a matrix}
+\title{Prints the corner of a matrix}
 \usage{
-corner(X, n = 10)
+corner(X, n = 6, c = "topleft")
 }
 \arguments{
 \item{X}{matrix or data.frame}
 
 \item{n}{num of columns and rows to print}
+
+\item{c}{matrix corner to print: "topleft" (default), "topright", "bottomleft", and "bottomright"}
 }
 \value{
-Prints the topleft corner of a matrix
+Prints the corner of a matrix
 }
 \description{
-This function prints the topleft corner of a matrix.
+This function prints a corner of a matrix. Which corner can be assigned with the 'c' parameter: "topleft"
 }
 \examples{
-corner(X = matrix)
+X <- matrix(data = 1:80, nrow = 10)
+
+corner(X = X, n = 2, c = "topleft")
+>     [,1] [,2]
+>[1,]    1   11
+>[2,]    2   12
+
+corner(X = X, n = 3, c = "bottomright")
+>      [,1] [,2] [,3]
+> [1,]   58   68   78
+> [2,]   59   69   79
+> [3,]   60   70   80
 }
