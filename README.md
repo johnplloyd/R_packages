@@ -11,7 +11,21 @@ install_github("johnplloyd/R_packages/PACKAGE_NAME")
 
 ### lloydUtils
 
-Set of custom R functions John often uses while coding in R.
+Set of basic, custom R functions John often uses while coding in R.
+
+>corner
+>
+>intersect.iterate
+>
+>ordered_dot_plot
+>
+>p_round.display
+>
+>remove_outliers
+>
+>transparent_color
+>
+>write_df
 
 ### lloydPerf
 
