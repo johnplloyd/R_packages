@@ -1,6 +1,6 @@
 #' Generates an ordered dot plot.
 #'
-#' Vizualise a distribution of data with ordered dots. Function will take a data frame, matrix, or list of vectors as input. Median values are indicated by thick red lines, 1st and 3rd quartiles are indicated with dotted gray lines. ylim, xlab, ylab, main, las, and cex arguments function as in plots in the base installation of R. Example ordered dot at: https://github.com/johnplloyd/R_packages/blob/master/IC50.ordered_dot_plot.pdf
+#' Vizualise a distribution of data with ordered dots. Function will take a data frame, matrix, or list of vectors as input. Median values are indicated by thick red lines, 1st and 3rd quartiles are indicated with dotted gray lines. ylim, xlab, ylab, main, las, and cex arguments function as in plots in the base installation of R. Example ordered dot at: https://github.com/johnplloyd/R_packages/blob/master/lloydUtils/IC50.ordered_dot_plot.pdf
 #' @param x matrix, data.frame, or list of vectors
 #' @param spread Distance of dot distributions from one another. Smaller spread = closer together, spread > 0.5 will cause overlap of neighboring distributions
 #' @param file Location to save file
