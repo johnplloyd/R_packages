@@ -1,4 +1,12 @@
 
+######################
+#
+# I AM IN THE PROCESS OF EVALUATING MY USE OF THESE FUNCTIONS 
+# AND INCLUDING THE ONES I USE FREQUENTLY IN A SET OF PACKAGES
+# -JPL, 14 May 2020
+#
+#####################
+
 corner <- function(m, n = 10){
   print(m[1:n, 1:n])
 }
