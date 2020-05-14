@@ -2,7 +2,7 @@
 % Please edit documentation in R/corner.R
 \name{corner}
 \alias{corner}
-\title{Prints the corner of a matrix}
+\title{Print the corner of a matrix}
 \usage{
 corner(X, n = 6, c = "topleft")
 }
@@ -17,15 +17,15 @@ corner(X, n = 6, c = "topleft")
 Prints the corner of a matrix
 }
 \description{
-This function prints a corner of a matrix. Which corner can be assigned with the 'c' parameter: "topleft"
+This function prints a corner of a matrix. Corner to be printed is assigned with the 'c' parameter (default = top left).
 }
 \examples{
 X <- matrix(data = 1:80, nrow = 10)
 
 corner(X = X, n = 2, c = "topleft")
->     [,1] [,2]
->[1,]    1   11
->[2,]    2   12
+>      [,1] [,2]
+> [1,]    1   11
+> [2,]    2   12
 
 corner(X = X, n = 3, c = "bottomright")
 >      [,1] [,2] [,3]

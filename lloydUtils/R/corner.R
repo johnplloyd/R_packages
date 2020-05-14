@@ -1,6 +1,6 @@
-#' Prints the corner of a matrix
+#' Print the corner of a matrix
 #'
-#' This function prints a corner of a matrix. Which corner can be assigned with the 'c' parameter: "topleft"
+#' This function prints a corner of a matrix. Corner to be printed is assigned with the 'c' parameter (default = top left).
 #' @param X matrix or data.frame
 #' @param n num of columns and rows to print
 #' @param c matrix corner to print: "topleft" (default), "topright", "bottomleft", and "bottomright"
@@ -10,9 +10,9 @@
 #' X <- matrix(data = 1:80, nrow = 10)
 #'
 #' corner(X = X, n = 2, c = "topleft")
-#' >     [,1] [,2]
-#' >[1,]    1   11
-#' >[2,]    2   12
+#' >      [,1] [,2]
+#' > [1,]    1   11
+#' > [2,]    2   12
 #'
 #' corner(X = X, n = 3, c = "bottomright")
 #' >      [,1] [,2] [,3]
