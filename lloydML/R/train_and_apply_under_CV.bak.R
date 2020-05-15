@@ -10,13 +10,12 @@
 #' @return Returns an object with 5 items: 1) data frame with predicted value from each CV repetition for each instance ($df_pred), 2) object with reporter items, such as parameters selected, from each CV repetition and CV fold ($report_obj), 3) object with the CV fold assignments for each repetition ($CV_folds), 4) mean predicted value across repetitions for each instance ($pred_mean), and 5) variance in predicted values across reptitions for each instance ($pred_var)
 #' @export
 
-train_and_apply_under_CV <- function( model_type, y, X, n_fold, parameters_obj ){
+train_and_apply_under_CV <- function( model_type, y, X, n_fold, n_rep, parameters_obj ){
 
   x <- as.matrix(X)
   n_instances <- length(y)
 
   # Assign CV folds for each repetition
-  # Assign CV folds
   CV_folds_obj <- lapply(X = 1:n_rep, FUN = function(i) assign_CV_folds(n_instances = n_instances, n_fold = n_fold) )
   names(CV_folds_obj) <- paste("rep", 1:n_rep, sep = "")
 
