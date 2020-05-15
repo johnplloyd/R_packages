@@ -1,18 +1,17 @@
 #' Train and apply machine learning algorithms under cross-validation
 #'
-#' This function will train a prediction model and apply it to new data.
+#' This function will hold out data by CV fold, train prediction model, and apply it to the held out fold. Acts a wrapper around train_and_apply_model().
 #' @param model_type algorithm to use: "glment", "plsr"
-#' @param y response vector - training
-#' @param X feature matrix - training
-#' @param newy response vector - testing (plsr only)
-#' @param newx feature matrix - testing
+#' @param y response vector
+#' @param X feature matrix
+#' @param n_fold number of CV folds: Integer
+#' @param n_rep number of repetitions: Integer
 #' @param parameters_obj object with algorithm-specific parameters
-#' @return Returns an object with three items: 1) vector with predicted response values for the testing instances ($predicted), 2) reporter items, such as parameters selected ($report_items), and 3) model object ($model)
+#' @return Returns an object with 5 items: 1) data frame with predicted value from each CV repetition for each instance ($df_pred), 2) object with reporter items, such as parameters selected, from each CV repetition and CV fold ($report_obj), 3) object with the CV fold assignments for each repetition ($CV_folds), 4) mean predicted value across repetitions for each instance ($pred_mean), and 5) variance in predicted values across reptitions for each instance ($pred_var)
 #' @export
 
-train_and_apply_under_CV <- function( model_type, Y, X, n_fold, n_rep, parameters_obj ){
+train_and_apply_under_CV <- function( model_type, y, X, n_fold, n_rep, parameters_obj ){
 
-  y <- Y[,1]
   x <- as.matrix(X)
   n_instances <- length(y)
 
