@@ -1,74 +1,56 @@
 #' Train and apply machine learning algorithms under cross-validation
 #'
-#' This function will hold out data by CV fold, train prediction model, and apply it to the held out fold. Acts a wrapper around train_and_apply_model().
-#' @param model_type algorithm to use: "glment", "plsr"
+#' This function will 1) remove instances with NA response values, 2) assign CV folds randomly, 3) iterively subset into training/testing data based on CV folds, and 4) send training/testing data to model training functions. Acts a wrapper around train_and_apply_model().
+#' @param model_type algorithm: "glmnet", "plsr"
 #' @param y response vector
 #' @param X feature matrix
 #' @param n_fold number of CV folds: Integer
-#' @param n_rep number of repetitions: Integer
 #' @param parameters_obj object with algorithm-specific parameters
-#' @return Returns an object with 5 items: 1) data frame with predicted value from each CV repetition for each instance ($df_pred), 2) object with reporter items, such as parameters selected, from each CV repetition and CV fold ($report_obj), 3) object with the CV fold assignments for each repetition ($CV_folds), 4) mean predicted value across repetitions for each instance ($pred_mean), and 5) variance in predicted values across reptitions for each instance ($pred_var)
+#' @return Returns an object with 2 items: 1) vector with predicted response values ($predicted) and 2) object with reporter items, such as parameters selected, from each CV repetition and CV fold ($report_obj)
 #' @export
 
 train_and_apply_under_CV <- function( model_type, y, X, n_fold, parameters_obj ){
 
-  x <- as.matrix(X)
-  n_instances <- length(y)
-
-  # Assign CV folds for each repetition
-  # Assign CV folds
-  CV_folds_obj <- lapply(X = 1:n_rep, FUN = function(i) assign_CV_folds(n_instances = n_instances, n_fold = n_fold) )
-  names(CV_folds_obj) <- paste("rep", 1:n_rep, sep = "")
-
-  # Set up objects to collect model data
-  df_pred <- data.frame( row.names = rownames(X) )
-  report_obj <- list()
-
-  # Iterate through each CV fold assignment
-  for( i in 1:n_rep ){
-    print(c(i, "=== === === ==="))
-    CV_folds_vec <- CV_folds_obj[[i]]
-    CV_folds_vec
-
-
-    pred_vec <- c()
-    report_obj1 <- list()
-
-    # Iterate through each fold
-    for(j in 1:n_fold){
-      print(c("        ", j))
-
-      # Subset data but in/not in CV fold
-      testing_ind <- which(CV_folds_vec == j)
-      training_ind <- which(CV_folds_vec != j)
-
-      y.train <- y[training_ind]
-      y.test <- y[testing_ind]
-
-      X.train <- x[training_ind, , drop = F]
-      X.test <- x[testing_ind, , drop = F]
-
-      # Send training and testing data to model-building function
-      modelObj <- train_and_apply_model(model_type = model_type, y = y.train, X = X.train, newy = y.test, newx = X.test, parameters_obj = parameters_obj )
-
-      # pred_vec
-      pred_vec <- c(pred_vec, modelObj$predicted)
-      report_obj1[[j]] <- modelObj$report_items
-    }
-
-    df_pred <- cbind(df_pred, pred_vec[row.names(df_pred)] )
-    names(df_pred)[i] <- paste("rep", i, sep = "")
-
-    names(report_obj1) <- paste("fold", 1:n_fold, sep = "")
-
-    report_obj[[i]] <- report_obj1
-    names(report_obj)[i] <- paste("rep", i, sep = "")
+  # 1) remove instances with NA response values
+  if(anyNA(y)){
+    NA_ind <- which(is.na(y))
+    y <- y[-NA_ind]
+    X <- X[-NA_ind,]
   }
 
-  pred_mean <- rowMeans(df_pred)
-  pred_var <- apply( X = df_pred, MARGIN = 1, FUN = var )
+  X <- as.matrix(X)
+  n_instances <- length(y)
 
-  returnObj <- list(df_pred = df_pred, report_obj = report_obj, CV_folds = CV_folds_obj, pred_mean = pred_mean, pred_var = pred_var )
+  # 2) assign CV folds randomly
+  CV_folds <- assign_CV_folds(n_instances = n_instances, n_fold = n_fold)
+
+  # Iterate through each fold
+  pred_vec <- c()
+  report_obj <- list()
+  for(i in 1:n_fold){
+    print(paste("          fold ", i, sep = ""))
+
+    # 3) subset into training/testing data based on CV folds
+    testing_ind <- which(CV_folds_vec == i)
+    training_ind <- which(CV_folds_vec != i)
+
+    y.train <- y[training_ind]
+    y.test <- y[testing_ind]
+
+    X.train <- X[training_ind, , drop = F]
+    X.test <- X[testing_ind, , drop = F]
+
+    # 4) send training/testing data to model training functions
+    modelObj <- train_and_apply_model(model_type = model_type, y = y.train, X = X.train, newy = y.test, newx = X.test, parameters_obj = parameters_obj )
+
+    pred_vec <- c(pred_vec, modelObj$predicted) # Add fold predictions to a single vector
+    report_obj[[j]] <- modelObj$report_items # Store reporter items, such as tuned parameters
+  }
+
+  pred_vec <- pred_vec[row.names(X)]
+  names(report_obj) <- paste("fold", 1:n_fold, sep = "")
+
+  returnObj <- list(predicted = pred_vec, report_obj = report_obj)
 
   return( returnObj )
 }
