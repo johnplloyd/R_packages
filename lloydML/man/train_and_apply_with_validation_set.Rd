@@ -2,7 +2,7 @@
 % Please edit documentation in R/train_and_apply_with_validation_set.R
 \name{train_and_apply_with_validation_set}
 \alias{train_and_apply_with_validation_set}
-\title{Train and apply machine learning algorithms under cross-validation}
+\title{Train and apply machine learning algorithms with a validation set}
 \usage{
 train_and_apply_with_validation_set(
   model_type,
@@ -15,21 +15,23 @@ train_and_apply_with_validation_set(
 )
 }
 \arguments{
-\item{model_type}{algorithm to use: "glment", "plsr"}
+\item{model_type}{algorithm to use: "glmnet", "plsr"}
 
-\item{y}{response vector}
+\item{y}{response vector: training set}
 
-\item{X}{feature matrix}
+\item{X}{feature matrix: training set}
+
+\item{X.val}{feature matrix: valiation set}
 
 \item{n_rep}{number of repetitions: Integer}
 
-\item{parameters_obj}{object with algorithm-specific parameters}
+\item{prop_per_rep}{proportion of training set to randomly select per repetition: \link{0, 1}}
 
-\item{n_fold}{number of CV folds: Integer}
+\item{parameters_obj}{object with algorithm-specific parameters}
 }
 \value{
-Returns an object with 5 items: 1) data frame with predicted value from each CV repetition for each instance ($df_pred), 2) object with reporter items, such as parameters selected, from each CV repetition and CV fold ($report_obj), 3) object with the CV fold assignments for each repetition ($CV_folds), 4) mean predicted value across repetitions for each instance ($pred_mean), and 5) variance in predicted values across reptitions for each instance ($pred_var)
+Returns an object with 5 items: 1) data frame with predicted value from each bagging repetition for each instance in the validation set ($df_pred), 2) object with indices of training subset selected for each repetition ($training_inds), 3) object with reporter items, such as parameters selected, from each repetition ($report_obj), 4) mean predicted value across repetitions for validation set instances ($pred_mean), and 5) standard deviation of predicted values across reptitions for validation set instances ($pred_sd)
 }
 \description{
-This function will hold out data by CV fold, train prediction model, and apply it to the held out fold. Acts a wrapper around train_and_apply_model().
+This function will randomly select a subset of the training data, train a prediction model, and apply it to the validation set. Acts a wrapper around train_and_apply_model().
 }
