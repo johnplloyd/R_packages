@@ -34,9 +34,6 @@
 
 performance.regression <- function(o, p){
 
-  #o <- obs_vec
-  #p <- pred_vec
-
   r_obj <- cor.test( x = o, y = p, method = "pearson" )
   rho_obj <- cor.test( x = o, y = p, method = "spearman" )
   ME <- calc_median_error(x1 = o, x2 = p)
