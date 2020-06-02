@@ -23,7 +23,7 @@ multi_y.prediction_and_performance_with_validation_set.wrapper <- function(model
                                           y = Y[,i], X = X,
                                           X.val = X.val,
                                           parameters_obj = parameters_obj,
-                                          n_rep = n_pred_rep, prop_per_rep = prop_per_rep)
+                                          n_rep = n_rep, prop_per_rep = prop_per_rep)
     }
   }else{
     predOutput <- lapply(X = 1:ncol(Y), FUN = function(i)
@@ -31,7 +31,7 @@ multi_y.prediction_and_performance_with_validation_set.wrapper <- function(model
                                           y = Y[,i], X = X,
                                           X.val = X.val,
                                           parameters_obj = parameters_obj,
-                                          n_rep = n_pred_rep, prop_per_rep = prop_per_rep)
+                                          n_rep = n_rep, prop_per_rep = prop_per_rep)
       )
   }
   names(predOutput) <- names(Y)
