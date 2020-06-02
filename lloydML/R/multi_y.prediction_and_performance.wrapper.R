@@ -8,9 +8,9 @@
 #' @param X.val matrix with column-wise feature values, validation set
 #' @param parameters_obj object with algorithm-specific parameters
 #' @param n_rep model-building repetitions (i.e. randomly-subsetting training set): integer, default = 10
-#' @param prop_per_rep proportion of training set to randomly-select for model training each repetition: [0, 1], default = 0.70
+#' @param prop_per_rep proportion of training set to randomly-select for model training each repetition: number between 0 and 1, default = 0.70
 #' @param parallel Boolean indicating whether to perfom the model repetitions in parallel: default = FALSE
-#' @return Returns a set of prediction objects (see train_and_apply_with_validation_set()) and a set of performance objects (see performance.regression()), one for each response vector.
+#' @return Returns a set of prediction objects ($prediction_objects; see train_and_apply_with_validation_set()) and a set of performance objects ($performance_objects; see performance.regression()), with one prediction and performance object for each response vector.
 #' @export
 #' @examples
 #' TBD
