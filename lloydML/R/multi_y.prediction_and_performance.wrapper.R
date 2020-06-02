@@ -1,24 +1,43 @@
-#' Calculate performance metrics for a regression model
+#' Train, apply, and assess performance of prediction models developed with multiple response vectors and a hold-out validation set
 #'
-#' This function takes vectors of observed (o) and predicted (p) values and calculates 7 performance metrics: Pearson's r (+ P-value), Spearman's rho (+ P-value), median error, mean squared error, and residual sum of squares.
-#' @param o numeric vector with observed values
-#' @param p numeric vector with predicted values
-#' @return object with 7 performance metrics: $r, $r.p, $rho, $rho.p, $median_error, $MSE, $RSS
+#' This function takes a matrix of response values and feature values and trains a model for each response columns based on the given feature set. Each model is then applied to a hold-out validation set.
+#' @param model_type algorithm to train model with: "glmnet" or "plsr"
+#' @param Y matrix with column-wise response values, training set
+#' @param X matrix with column-wise feature values, training set
+#' @param Y.val matrix with column-wise response values, validation set
+#' @param X.val matrix with column-wise feature values, validation set
+#' @param parameters_obj object with algorithm-specific parameters
+#' @param n_rep model-building repetitions (i.e. randomly-subsetting training set): integer, default = 10
+#' @param prop_per_rep proportion of training set to randomly-select for model training each repetition: [0, 1], default = 0.70
+#' @param parallel Boolean indicating whether to perfom the model repetitions in parallel: default = FALSE
+#' @return Returns a set of prediction objects (see train_and_apply_with_validation_set()) and a set of performance objects (see performance.regression()), one for each response vector.
 #' @export
 #' @examples
-#' x <- runif(5)
-#' y <- runif(5)
+#' TBD
+#'
+multi_y.prediction_and_performance_with_validation_set.wrapper <- function(model_type, Y, X, Y.val, X.val, parameters_obj, n_rep = 10, prop_per_rep = 0.7, parallel = FALSE){
 
-multi_y.prediction_and_performance.wrapper <- function(pred_obj, m_Y, metric_i, P_i, metric_name){
+  if(parallel){
+    predOutput <- foreach(i = 1:ncol(Y)) %dopar% {
+      train_and_apply_with_validation_set(model_type = model_type,
+                                          y = Y[,i], X = X,
+                                          X.val = X.val,
+                                          parameters_obj = parameters_obj,
+                                          n_rep = n_pred_rep, prop_per_rep = prop_per_rep)
+    }
+  }else{
+    predOutput <- lapply(X = 1:ncol(Y), FUN = function(i)
+      train_and_apply_with_validation_set(model_type = model_type,
+                                          y = Y[,i], X = X,
+                                          X.val = X.val,
+                                          parameters_obj = parameters_obj,
+                                          n_rep = n_pred_rep, prop_per_rep = prop_per_rep)
+      )
+  }
+  names(predOutput) <- names(Y)
 
-  # pred_obj <- output.LASSO.varExpr_subset
-  # m_obs <- m.AUC
-  # metric_i <- 3
-  # P_i <- 4
-  # metric_name <- "rho"
+  perfOutput <- lapply( X = 1:length(predOutput), FUN = function(i) performance.regression(o = Y.val[,i], p = predOutput[[i]]$pred_mean) )
+  names(perfOutput) <- names(predOutput)
 
-  perf_obj <- lapply( X = 1:length(pred_obj), FUN = function(i) performance.obs_v_pred(o = m_obs[,i], p = pred_obj[[i]]$pred_mean) )
-  names(perf_obj) <- colnames(m_obs)
-  df_perf <- select_performances(perf_obj = perf_obj, metric_i = metric_i, P_i = P_i, metric_name = metric_name)
-  return( list(perf_obj = perf_obj, df_perf = df_perf) )
+  return( list(predictions_object = predOutput, performances_object = perfOutput) )
 }
