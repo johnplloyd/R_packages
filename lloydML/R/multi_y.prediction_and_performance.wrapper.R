@@ -15,26 +15,26 @@
 #' @examples
 #' TBD
 #'
-multi_y.prediction_and_performance_with_validation_set.wrapper <- function(model_type, Y, X, Y.val, X.val, parameters_obj, n_rep = 10, prop_per_rep = 0.7, parallel = FALSE){
+multi_y.prediction_and_performance_with_validation_set.wrapper <- function(model_type, Y.train, X.train, Y.val, X.val, parameters_obj, n_rep = 10, prop_per_rep = 0.7, parallel = FALSE){
 
   if(parallel){
-    predOutput <- foreach(i = 1:ncol(Y)) %dopar% {
+    predOutput <- foreach(i = 1:ncol(Y.train)) %dopar% {
       train_and_apply_with_validation_set(model_type = model_type,
-                                          y = Y[,i], X = X,
+                                          y = Y.train[,i], X = X.train,
                                           X.val = X.val,
                                           parameters_obj = parameters_obj,
                                           n_rep = n_rep, prop_per_rep = prop_per_rep)
     }
   }else{
-    predOutput <- lapply(X = 1:ncol(Y), FUN = function(i)
+    predOutput <- lapply(X = 1:ncol(Y.train), FUN = function(i)
       train_and_apply_with_validation_set(model_type = model_type,
-                                          y = Y[,i], X = X,
+                                          y = Y.train[,i], X = X.train,
                                           X.val = X.val,
                                           parameters_obj = parameters_obj,
                                           n_rep = n_rep, prop_per_rep = prop_per_rep)
       )
   }
-  names(predOutput) <- names(Y)
+  names(predOutput) <- names(Y.train)
 
   perfOutput <- lapply( X = 1:length(predOutput), FUN = function(i) performance.regression(o = Y.val[,i], p = predOutput[[i]]$pred_mean) )
   names(perfOutput) <- names(predOutput)
