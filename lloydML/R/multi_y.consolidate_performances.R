@@ -15,7 +15,7 @@ multi_y.consolidate_performances <- function(perfObj, metric_i, P_i){
   names(metric_vec) <- names(perfObj)
 
   P_vec <- sapply( X = 1:length(perfObj), FUN = function(i) perfObj[[i]][[P_i]] )
-  names(P_vec) <- names(perf_obj)
+  names(P_vec) <- names(perfObj)
 
   P_vec.adj <- p.adjust(p = P_vec, method = "fdr")
 
