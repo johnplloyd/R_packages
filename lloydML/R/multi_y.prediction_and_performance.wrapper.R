@@ -39,5 +39,5 @@ multi_y.prediction_and_performance_with_validation_set.wrapper <- function(model
   perfOutput <- lapply( X = 1:length(predOutput), FUN = function(i) performance.regression(o = Y.val[,i], p = predOutput[[i]]$pred_mean) )
   names(perfOutput) <- names(predOutput)
 
-  return( list(predictions_object = predOutput, performances_object = perfOutput) )
+  return( list(prediction_objects = predOutput, performance_objects = perfOutput) )
 }
