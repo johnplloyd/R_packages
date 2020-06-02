@@ -6,8 +6,8 @@
 \usage{
 multi_y.prediction_and_performance_with_validation_set.wrapper(
   model_type,
-  Y,
-  X,
+  Y.train,
+  X.train,
   Y.val,
   X.val,
   parameters_obj,
@@ -19,10 +19,6 @@ multi_y.prediction_and_performance_with_validation_set.wrapper(
 \arguments{
 \item{model_type}{algorithm to train model with: "glmnet" or "plsr"}
 
-\item{Y}{matrix with column-wise response values, training set}
-
-\item{X}{matrix with column-wise feature values, training set}
-
 \item{Y.val}{matrix with column-wise response values, validation set}
 
 \item{X.val}{matrix with column-wise feature values, validation set}
@@ -31,12 +27,16 @@ multi_y.prediction_and_performance_with_validation_set.wrapper(
 
 \item{n_rep}{model-building repetitions (i.e. randomly-subsetting training set): integer, default = 10}
 
-\item{prop_per_rep}{proportion of training set to randomly-select for model training each repetition: \link{0, 1}, default = 0.70}
+\item{prop_per_rep}{proportion of training set to randomly-select for model training each repetition: number between 0 and 1, default = 0.70}
 
 \item{parallel}{Boolean indicating whether to perfom the model repetitions in parallel: default = FALSE}
+
+\item{Y}{matrix with column-wise response values, training set}
+
+\item{X}{matrix with column-wise feature values, training set}
 }
 \value{
-Returns a set of prediction objects (see train_and_apply_with_validation_set()) and a set of performance objects (see performance.regression()), one for each response vector.
+Returns a set of prediction objects ($prediction_objects; see train_and_apply_with_validation_set()) and a set of performance objects ($performance_objects; see performance.regression()), with one prediction and performance object for each response vector.
 }
 \description{
 This function takes a matrix of response values and feature values and trains a model for each response columns based on the given feature set. Each model is then applied to a hold-out validation set.

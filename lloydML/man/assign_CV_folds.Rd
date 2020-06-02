@@ -4,12 +4,12 @@
 \alias{assign_CV_folds}
 \title{Assign cross-validation folds}
 \usage{
-assign_CV_folds(n_instances, n_fold)
+assign_CV_folds(n_instances, n_fold = 10)
 }
 \arguments{
-\item{n_instances}{of instances to assign CV folds: Integer}
+\item{n_instances}{number of instances to assign CV folds: Integer}
 
-\item{n_fold}{of CV folds: Integer}
+\item{n_fold}{number of CV folds: Integer, default = 10}
 }
 \value{
 Returns a vector with fold assignments
