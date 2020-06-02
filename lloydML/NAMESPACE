@@ -2,6 +2,7 @@
 
 export(assign_CV_folds)
 export(iterate_search_lambda)
+export(multi_y.consolidate_performances)
 export(multi_y.prediction_and_performance_with_validation_set.wrapper)
 export(train_and_apply_glmnet_model)
 export(train_and_apply_model)
