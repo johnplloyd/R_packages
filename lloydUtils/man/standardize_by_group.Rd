@@ -15,7 +15,7 @@ standardize_by_group(x, groups)
 Returns a numeric vector standardized by group label.
 }
 \description{
-This function scales and centers a numeric vector within groups. Numbers from a single group are scaled linearly between 0 and 1, then centered by subtracting the scaled mean. This process is performed idenpendently for all groups.
+This function scales and centers a numeric vector within groups. Numbers from a single group are scaled linearly between 0 and 1, then centered by subtracting the scaled mean. This process is performed independently for all groups.
 }
 \examples{
 x <- 9:1
