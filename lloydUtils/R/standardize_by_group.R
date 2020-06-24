@@ -13,15 +13,17 @@
 
 standardize_by_group <- function(x, group_labels){
   
-  groups.uniq <- unique(groups)
+  na.rm <- T
+  
+  groups.uniq <- unique(group_labels)
   x.scale_center <- c()
   for(i in 1:length(groups.uniq)){
     group <- groups.uniq[i]
-    group_i <- which(groups == group)
+    group_i <- which(group_labels == group)
     
     group_vals <- x[group_i]
-    group_vals.scale <- ( group_vals - min(group_vals, na.rm = T) ) / ( max(group_vals, na.rm = T) - min(group_vals, na.rm = T) )
-    group_vals.scale.center <- group_vals.scale - mean(group_vals.scale, na.rm = T)
+    group_vals.scale <- ( group_vals - min(group_vals, na.rm = na.rm) ) / ( max(group_vals, na.rm = na.rm) - min(group_vals, na.rm = na.rm) )
+    group_vals.scale.center <- group_vals.scale - mean(group_vals.scale, na.rm = na.rm)
     
     x.scale_center[group_i] <- group_vals.scale.center
   }
