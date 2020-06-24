@@ -20,6 +20,6 @@ This function scales and centers a numeric vector within groups. Numbers from a 
 \examples{
 x <- 9:1
 group_labels <- c("A", "B", "C", "A", "B", "C", "A", "B", "C" )
-standardize_by_group(x = x, groups = groups)
+standardize_by_group(x = x, group_labels = group_labels)
 > 0.5  0.5  0.5  0.0  0.0  0.0 -0.5 -0.5 -0.5
 }
