@@ -4,12 +4,12 @@
 \alias{standardize_by_group}
 \title{Standardize a numeric vector based on group identity}
 \usage{
-standardize_by_group(x, groups)
+standardize_by_group(x, group_labels)
 }
 \arguments{
 \item{x}{numeric vector}
 
-\item{groups}{vector with group labels}
+\item{group_labels}{vector with group labels}
 }
 \value{
 Returns a numeric vector standardized by group label.
@@ -19,7 +19,7 @@ This function scales and centers a numeric vector within groups. Numbers from a 
 }
 \examples{
 x <- 9:1
-groups <- c("A", "B", "C", "A", "B", "C", "A", "B", "C" )
+group_labels <- c("A", "B", "C", "A", "B", "C", "A", "B", "C" )
 standardize_by_group(x = x, groups = groups)
 > 0.5  0.5  0.5  0.0  0.0  0.0 -0.5 -0.5 -0.5
 }
