@@ -42,3 +42,21 @@ calc_MSE
 calc_RSS
 performance.regression
 ```
+
+### lloydML
+
+Set of functions for calculating performing machine learning tasks in R. Although many ML packages and frameworks exist, I typically do not find they implement their leaning in the way that I'd like, and have resorted to building my custom package. For example, this set of functions includes implementation of multiple rounds of cross-validation or bagging, with final prediction scores reported as average.
+
+Functions included:
+```
+assign_CV_folds
+glmnet_feature_weights
+iterate_search_lambda
+multi_y.consolidate_performances
+multi_y.prediction_and_performance_with_validation_set.wrapper
+sort_glmnet_weights
+train_and_apply_glmnet_model
+train_and_apply_model
+train_and_apply_under_CV
+train_and_apply_with_validation_set
+```
