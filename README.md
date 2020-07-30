@@ -45,7 +45,7 @@ performance.regression
 
 ### lloydML
 
-Set of functions for calculating performing machine learning tasks in R. Although many ML packages and frameworks exist, I typically do not find they implement their learning in the way that I'd like, and have resorted to building my custom package. For example, this set of functions includes implementation of multiple rounds of cross-validation or bagging, with final prediction scores reported as average.
+Set of functions for calculating performing machine learning tasks in R. Although many ML packages and frameworks exist, I typically do not find they implement their learning in the way that I'd like, and have resorted to building my custom package. For example, this set of functions includes implementation of multiple rounds of cross-validation or bagging, with final prediction scores reported as the average of the multiple rounds.
 
 Functions included:
 ```
