@@ -11,6 +11,9 @@ library(lloydUtils)
 
 install_github("johnplloyd/R_packages/lloydPerf")
 library(lloydPerf)
+
+install_github("johnplloyd/R_packages/lloydML")
+library(lloydML)
 ```
 
 ### lloydUtils
